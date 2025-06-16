@@ -1,0 +1,55 @@
+﻿@page
+@model ITAssetManagement.Pages.Assets.IndexModel
+@using ITAssetManagement.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1 class="mb-4">Assets</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">
+        Create New
+    </a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered  align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Purchased</th>
+                <th>Expires</th>
+                <th>Assigned To</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Assets)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Type</td>
+                    <td>
+                        <span class="badge @(
+                              item.Status == "Available" ? "bg-success" :
+                              item.Status == "Assigned" ? "bg-primary" :
+                              item.Status == "Maintenance" ? "bg-warning text-dark" :
+                              "bg-secondary"
+                                                )">@item.Status</span>
+                </td>
+                <td>@item.PurchaseDate:d</td>
+                <td>@item.WarrantyExpiry:d</td>
+                <td>@item.AssignedEmployee?.FullName</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.AssetID" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <a asp-page="Delete" asp-route-id="@item.AssetID" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                </td>
+            </tr>
+                        }
+        </tbody>
+    </table>
+</div>
+
+
+

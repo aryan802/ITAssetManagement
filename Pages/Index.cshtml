@@ -1,0 +1,14 @@
+﻿@page
+@model ITAssetManagement.Pages.IndexModel
+@{
+    if (User.Identity?.IsAuthenticated ?? false)
+    {
+        // If already logged in, go to Dashboard
+        Response.Redirect("/Dashboard", permanent: false);
+    }
+    else
+    {
+        // Otherwise, go to Identity login page
+        Response.Redirect("/Identity/Account/Login", permanent: false);
+    }
+}

@@ -1,0 +1,74 @@
+﻿@page
+@model ITAssetManagement.Pages.Assets.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Asset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Asset.AssetID" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Asset.Name" class="control-label"></label>
+                <input asp-for="Asset.Name" class="form-control" />
+                <span asp-validation-for="Asset.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Asset.Type" class="control-label"></label>
+                <input asp-for="Asset.Type" class="form-control" />
+                <span asp-validation-for="Asset.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Asset.Status" class="control-label"></label>
+                <input asp-for="Asset.Status" class="form-control" />
+                <span asp-validation-for="Asset.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Asset.PurchaseDate" class="control-label"></label>
+                <input asp-for="Asset.PurchaseDate" class="form-control" />
+                <span asp-validation-for="Asset.PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <label asp-for="Asset.WarrantyExpiry" class="control-label"></label>
+                <input asp-for="Asset.WarrantyExpiry" class="form-control" />
+                <span asp-validation-for="Asset.WarrantyExpiry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Asset.AssignedTo" class="control-label"></label>
+                <select asp-for="Asset.AssignedTo"
+                        class="form-control"
+                        asp-items="Model.EmployeeList">
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <span asp-validation-for="Asset.AssignedTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="vendors">Vendors</label>
+                <select asp-for="SelectedVendorIds" asp-items="Model.VendorList" multiple class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

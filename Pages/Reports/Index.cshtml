@@ -1,0 +1,61 @@
+﻿@page
+@model ITAssetManagement.Pages.Reports.IndexModel
+@{
+    ViewData["Title"] = "Asset Reports";
+}
+
+<h2>Asset Reports</h2>
+
+<form method="post">
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label>Assigned Employee</label>
+            <select asp-for="Filter.EmployeeId" asp-items="Model.EmployeeList" class="form-select">
+                <option value="">-- All --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Asset Type</label>
+            <input asp-for="Filter.Type" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>Status</label>
+            <input asp-for="Filter.Status" class="form-control" />
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary me-2">Search</button>
+            <button type="submit" name="export" value="excel" class="btn btn-success">Export to Excel</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.FilteredAssets.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Purchase Date</th>
+                <th>Assigned To</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asset in Model.FilteredAssets)
+            {
+                <tr>
+                    <td>@asset.Name</td>
+                    <td>@asset.Type</td>
+                    <td>@asset.Status</td>
+                    <td>@asset.PurchaseDate.ToShortDateString()</td>
+                    <td>@asset.AssignedEmployee?.FullName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No results to display.</p>
+}

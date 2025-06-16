@@ -1,0 +1,37 @@
+﻿@page
+@model ITAssetManagement.Pages.Admin.ManageUsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h2>Manage Users</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Current Role</th>
+            <th>Change Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="UserId" value="@user.Id" />
+                        <select name="SelectedRole" class="form-select form-select-sm">
+                            <option>Admin</option>
+                            <option>ITStaff</option>
+                            <option>Employee</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
